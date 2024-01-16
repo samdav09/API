@@ -1,0 +1,110 @@
+go
+use APIWeb
+go
+--************************ VALIDAMOS SI EXISTE EL PROCEDIMIENTO ************************--
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'usp_registrar')
+DROP PROCEDURE usp_registrar
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'usp_modificar')
+DROP PROCEDURE usp_modificar
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'usp_obtener')
+DROP PROCEDURE usp_obtener
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'usp_listar')
+DROP PROCEDURE usp_obtener
+
+go
+
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'usp_eliminar')
+DROP PROCEDURE usp_eliminar
+
+go
+
+--************************ PROCEDIMIENTOS PARA CREAR ************************--
+create procedure usp_registrar(
+@idproducto varchar(60),
+@nombre varchar(60),
+@precio varchar(60),
+@stock varchar(60),
+@IdCategoria varchar(60)
+)
+as
+begin
+
+insert into PRODUCTO(Nombre,Precio,Stock,IdCategoria)
+values
+(
+@nombre,
+@precio,
+@stock,
+@IdCategoria
+)
+
+end
+
+
+go
+
+create procedure usp_modificar(
+@idproducto varchar(60),
+@nombre varchar(60),
+@precio varchar(60),
+@stock varchar(60),
+@IdCategoria varchar(60)
+
+)
+as
+begin
+
+update Producto set 
+
+
+Nombre = @nombre,
+Precio = @precio,
+Stock = @stock,
+IdCategoria = @IdCategoria
+where IdProducto = @idproducto
+
+end
+
+go
+
+create procedure usp_obtener(@idproducto int)
+as
+begin
+
+select * from Producto where IdProducto = @idproducto
+end
+
+go
+create procedure usp_listar
+as
+begin
+
+select * from Producto
+end
+
+
+go
+
+go
+
+create procedure usp_eliminar(
+@idproducto int
+)
+as
+begin
+
+delete from Producto where IdProducto = @idproducto
+
+end
+
+go
